@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".SignupActivity">
+
+    <EditText
+        android:id="@+id/emailEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="74dp" />
+
+    <EditText
+        android:id="@+id/passwordEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="Password"
+        android:inputType="textPassword"
+        app:layout_constraintTop_toBottomOf="@+id/emailEditText"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <Button
+        android:id="@+id/signupButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="?attr/colorPrimary"
+        android:text="Sign Up"
+        android:textColor="#FFFFFF"
+        app:layout_constraintTop_toBottomOf="@+id/passwordEditText"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <TextView
+        android:id="@+id/loginTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="Already have an account? Login"
+        app:layout_constraintEnd_toEndOf="@+id/signupButton"
+        app:layout_constraintStart_toStartOf="@+id/signupButton"
+        app:layout_constraintTop_toBottomOf="@+id/signupButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

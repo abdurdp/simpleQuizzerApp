@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".MainActivity">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/black"
+    android:padding="24dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Total Questions"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:id="@+id/total_question"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="High score"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp"
+        android:visibility="gone"
+        android:layout_below="@id/total_question"
+        android:textColor="@color/white"
+        android:id="@+id/tvHighScore"
+        />
+
+    <TextView
+        android:id="@+id/question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/choices_layout"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="This Will Be the Question"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="24dp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/llUserBoard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="5dp"
+            android:text="This Will Be the Question"
+            android:textAlignment="center"
+            android:textColor="#FFEB3B"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="5dp"
+            android:text="This Will Be the Question"
+            android:textAlignment="center"
+            android:textColor="#FFEB3B"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tv3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="5dp"
+            android:text="This Will Be the Question"
+            android:textAlignment="center"
+            android:textColor="#FFEB3B"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tv4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="5dp"
+            android:text="This Will Be the Question"
+            android:textAlignment="center"
+            android:textColor="#FFEB3B"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tv5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="5dp"
+            android:text="This Will Be the Question"
+            android:textAlignment="center"
+            android:textColor="#FFEB3B"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/choices_layout"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ans_A"
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/white"
+            android:text="Ans A"
+            android:textColor="@color/black"
+            />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ans_B"
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/white"
+            android:text="Ans B"
+            android:textColor="@color/black"
+            />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ans_C"
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/white"
+            android:text="Ans C"
+            android:textColor="@color/black"
+            />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ans_D"
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/white"
+            android:text="Ans D"
+            android:textColor="@color/black"
+            />
+
+
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/submit_btn"
+        android:text="Submit"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/logout_btn"
+            android:text="Logout"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:src="@drawable/baseline_logout_24"
+            android:layout_marginTop="20dp"
+            />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/profile_btn"
+            android:text="Profile"
+            android:layout_weight="1"
+            android:src="@drawable/baseline_account_circle_24"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            />
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
+
+</ScrollView>
