@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ansB.setOnClickListener(this);
         ansC.setOnClickListener(this);
         ansD.setOnClickListener(this);
+        submitBtn.setOnClickListener(this);
 
         profile_btn.setOnClickListener(v -> {
             // After signing out, you can navigate to a login or home screen
