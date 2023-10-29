@@ -189,7 +189,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="2"
+        android:weightSum="3"
         android:layout_marginTop="40dp"
         android:orientation="horizontal">
         <ImageView
@@ -200,6 +200,16 @@
             android:textStyle="bold"
             android:layout_weight="1"
             android:src="@drawable/baseline_logout_24"
+            android:layout_marginTop="20dp"
+            />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivScore"
+            android:text="Logout"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:src="@drawable/baseline_area_chart_24"
             android:layout_marginTop="20dp"
             />
         <ImageView

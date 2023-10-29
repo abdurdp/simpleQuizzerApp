@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -32,17 +33,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button submitBtn;
     ImageView logoutBtn;
     ImageView profile_btn;
+    ImageView ivScore;
 
     int score=0;
     int totalQuestion = QuestionAnswer.question.length;
-    int currentQuestionsIndex = 0;
     String selectedAnswer = "";
 
     // Create an array of unique numbers from 0 to numQuestions - 1
     ArrayList<Integer> numberArray = new ArrayList<>();
+    private String[] userSelections; // Track the user's selected answers
     private int randomIndex;
     DatabaseReference scoresRef = FirebaseDatabase.getInstance().getReference("scores");
     DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
+    private CountDownTimer timer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         logoutBtn = findViewById(R.id.logout_btn);
         profile_btn = findViewById(R.id.profile_btn);
         tvHighScore = findViewById(R.id.tvHighScore);
+        ivScore = findViewById(R.id.ivScore);
 
         ansA.setOnClickListener(this);
         ansB.setOnClickListener(this);
@@ -70,9 +75,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ansD.setOnClickListener(this);
         submitBtn.setOnClickListener(this);
 
+        userSelections = new String[totalQuestion];
         profile_btn.setOnClickListener(v -> {
             // After signing out, you can navigate to a login or home screen
             Intent intent = new Intent(getApplication(), ProfileActivity.class);
+            startActivity(intent);
+
+        });
+        ivScore.setOnClickListener(v -> {
+            // After signing out, you can navigate to a login or home screen
+            Intent intent = new Intent(getApplication(), ScoreBoardActivity.class);
             startActivity(intent);
 
         });
@@ -170,6 +182,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(selectedAnswer.equals(QuestionAnswer.correctAnswer[randomIndex])){
                 score++;
             }
+            // Store the user's selected answer in the userSelections array
+            userSelections[randomIndex] = selectedAnswer;
+            timer.cancel();
+            selectedAnswer="";
             loadNewQuestion();
 
         }else {
@@ -186,48 +202,83 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     void loadNewQuestion(){
 
         if(numberArray.isEmpty()){
+            timer.cancel();
             finishQuiz();
             return;
         }
-
         randomIndex = numberArray.remove(0);
-        questionTextView.setText(QuestionAnswer.question[randomIndex]);
+        questionTextView.setText((totalQuestion-numberArray.size())+". "+QuestionAnswer.question[randomIndex]);
         ansA.setText(QuestionAnswer.choice[randomIndex][0]);
         ansB.setText(QuestionAnswer.choice[randomIndex][1]);
         ansC.setText(QuestionAnswer.choice[randomIndex][2]);
         ansD.setText(QuestionAnswer.choice[randomIndex][3]);
 
-    }
+        // Start the timer for 1 minute
+        timer = new CountDownTimer(60000, 1000) {
+            int sec = 60;
+            public void onTick(long millisUntilFinished) {
+                submitBtn.setText("Submit: "+sec--);
 
-    void finishQuiz(){
+           }
+            public void onFinish() {
+                // Mark the question as unanswered with 0 marks
+                timer.cancel();
+                selectedAnswer="";
+                loadNewQuestion();
+            }
+        }.start();
+
+
+
+    }
+    void finishQuiz() {
+        // Stop the timer
+        timer.cancel();
         String passtatus = "";
         if(score > totalQuestion*0.60){
             passtatus = "Passed";
         }else {
             passtatus = "Failed";
         }
+        List<String> correctAnswers = new ArrayList<>();
+        List<String> wrongAnswers = new ArrayList<>();
+        for (int i = 0; i < QuestionAnswer.question.length; i++) {
+            String correctAnswer = QuestionAnswer.correctAnswer[i];
+            String question = QuestionAnswer.question[i];
+            String userAnswer = userSelections[i] != null ? userSelections[i] : "";
+            if (userAnswer.equals(correctAnswer)) {
+                correctAnswers.add((i + 1)+". " +question+": correct ans, " + userAnswer + "- (You answered Correct)");
+            } else {
+                correctAnswers.add((i + 1)+". " +question+" : correct ans, " + correctAnswer +"- (You answered Wrong)");
+            }
+        }
 
+        // Prepare results to display in an alert dialog
+        StringBuilder resultMessage = new StringBuilder();
+        resultMessage.append("Your results: "+ score+ ", out of: "+ totalQuestion).append("\n");
+        for (String answer : correctAnswers) {
+            resultMessage.append(answer).append("\n");
+        }
+
+        // Display the correct and wrong answers in an alert dialog
         new AlertDialog.Builder(this)
-                .setTitle(passtatus)
-                .setMessage("Score is"+ score+ "out of"+ totalQuestion)
-                .setPositiveButton("Restart",(dialogInterface,i) -> restartQuiz())
+                .setTitle("Quiz Results("+passtatus+")")
+                .setMessage(resultMessage.toString())
+                .setPositiveButton("Restart", (dialogInterface, i) -> restartQuiz())
                 .setCancelable(false)
                 .show();
+
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         scoresRef.child(userId).setValue(score);
-
-
-
     }
 
-
-    void restartQuiz(){
+    void restartQuiz() {
         score = 0;
-        currentQuestionsIndex = 0;
+        userSelections = new String[QuestionAnswer.question.length]; // Reset user selections
         randomizeQuestion();
         loadNewQuestion();
-
     }
+
 
 
 }
